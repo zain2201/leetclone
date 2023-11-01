@@ -1,11 +1,17 @@
-import React from "react";
+import React, { use, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import Login from "./Login";
 import Signup from "./Signup";
 import ResetPassword from "./ResetPassword";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { authModalState } from "@/atoms/authModalAtom";
+import { useCloseModal } from "../../hooks/useCloseModal";
 type Props = {};
 
 const AuthModal = (props: Props) => {
+  const authModal = useRecoilValue(authModalState);
+  const setAuthModalState = useSetRecoilState(authModalState);
+  const closeModal = useCloseModal();
   return (
     <>
       <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-60"></div>
@@ -16,14 +22,18 @@ const AuthModal = (props: Props) => {
               <button
                 type="button"
                 className="bg-transparent  rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-800 hover:text-white text-white"
+                onClick={closeModal}
               >
                 <IoClose className="h-5 w-5" />
               </button>
             </div>
-            {/* <Login />
-             */}
-            <Signup />
-            {/* <ResetPassword /> */}
+            {authModal.type === "login" ? (
+              <Login />
+            ) : authModal.type === "register" ? (
+              <Signup />
+            ) : (
+              <ResetPassword />
+            )}
           </div>
         </div>
       </div>
