@@ -11,8 +11,8 @@ const index = (props: Props) => {
         <Navbar />
         <div className="flex items-center justify-center h-[calc(100vh-5rem)] pointer-events-none select-none ">
           <img src="/hero.png" alt="hero image"></img>
-          <AuthModal />
         </div>
+        <AuthModal />
       </div>
     </div>
   );

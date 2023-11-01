@@ -18,7 +18,7 @@ const Login = (props: Props) => {
           type="email"
           id="email"
           name="email"
-          className="border-2 outline-none sm:text-sm  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
+          className="border-2 outline-none sm:text-sm  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-white-500 placeholder-gray-400 text-white"
           placeholder="Email address"
         ></input>
       </div>
@@ -34,7 +34,7 @@ const Login = (props: Props) => {
           type="password"
           id="password"
           name="password"
-          className="border-2 outline-none sm:text-sm  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
+          className="border-2 outline-none sm:text-sm  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white-600 border-gray-500 placeholder-gray-400 text-white"
           placeholder="Enter Password"
         ></input>
       </div>
@@ -44,6 +44,20 @@ const Login = (props: Props) => {
       >
         Login
       </button>
+      <button>
+        <a
+          href="#"
+          className="text-sm block text-brand-orange hover:underline w-full text-right"
+        >
+          Forgot Password
+        </a>
+      </button>
+      <div className="text-sm font-medium text-gray-300">
+        Not Registered?{" "}
+        <a href="#" className="text-blue-700 hover:undeline">
+          Create Account
+        </a>
+      </div>
     </form>
   );
 };

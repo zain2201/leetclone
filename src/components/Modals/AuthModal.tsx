@@ -1,6 +1,8 @@
 import React from "react";
 import { IoClose } from "react-icons/io5";
 import Login from "./Login";
+import Signup from "./Signup";
+import ResetPassword from "./ResetPassword";
 type Props = {};
 
 const AuthModal = (props: Props) => {
@@ -18,7 +20,10 @@ const AuthModal = (props: Props) => {
                 <IoClose className="h-5 w-5" />
               </button>
             </div>
-            <Login />
+            {/* <Login />
+             */}
+            <Signup />
+            {/* <ResetPassword /> */}
           </div>
         </div>
       </div>
