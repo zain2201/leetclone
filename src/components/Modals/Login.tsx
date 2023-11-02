@@ -1,17 +1,41 @@
 import { authModalState } from "@/atoms/authModalAtom";
-import React from "react";
+import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
-
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "@/firebase/firebase";
+import { useRouter } from "next/router";
 type Props = {};
 
 const Login = (props: Props) => {
+  const router = useRouter();
   const setAuthModalState = useSetRecoilState(authModalState);
-
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
   const handleClick = (type: "login" | "register" | "forgotPassword") => {
     setAuthModalState((prev) => ({ ...prev, type }));
   };
+  const [inputs, setInputs] = useState({ email: "", password: "" });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      if (!inputs.email || !inputs.password)
+        return alert("Please fill all the fields");
+      const user = await signInWithEmailAndPassword(
+        inputs.email,
+        inputs.password
+      );
+      if (!user) return;
+      router.push("/");
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
   return (
-    <form className="space-y-6 px-6 py-4">
+    <form className="space-y-6 px-6 py-4" onSubmit={handleSubmit}>
       <h3 className="text-xl font-medium text-white">Sign in to LeetCode</h3>
       <div>
         <label
@@ -25,6 +49,7 @@ const Login = (props: Props) => {
           type="email"
           id="email"
           name="email"
+          onChange={handleChange}
           className="border-2 outline-none sm:text-sm  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-white-500 placeholder-gray-400 text-white"
           placeholder="Email address"
         ></input>
@@ -41,7 +66,8 @@ const Login = (props: Props) => {
           type="password"
           id="password"
           name="password"
-          className="border-2 outline-none sm:text-sm  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white-600 border-gray-500 placeholder-gray-400 text-white"
+          onChange={handleChange}
+          className="border-2 outline-none sm:text-sm  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white-600 border-gray-500 placeholder-gray-400 text-black"
           placeholder="Enter Password"
         ></input>
       </div>
