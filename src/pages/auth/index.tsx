@@ -13,7 +13,7 @@ const index = (props: Props) => {
   const [user, loading, error] = useAuthState(auth); // [user,loading,error
   const authModal = useRecoilValue(authModalState);
   const router = useRouter();
-  const [pageLoading, setPageLoading] = useState(true);
+  const [pageLoading, setPageLoading] = useState(false);
   useEffect(() => {
     if (user) router.push("/");
     if (!loading && !user) setPageLoading(false);

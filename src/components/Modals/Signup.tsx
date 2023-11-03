@@ -4,6 +4,7 @@ import { useSetRecoilState } from "recoil";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
 import { auth } from "@/firebase/firebase";
+import { log } from "console";
 
 type Props = {};
 
@@ -36,7 +37,7 @@ const Signup = (props: Props) => {
       if (!newUser) return;
       router.push("/");
     } catch (error: any) {
-      alert(error.message);
+      console.log("this is error", error);
     }
   };
   return (
