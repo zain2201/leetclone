@@ -1,9 +1,10 @@
 import { authModalState } from "@/atoms/authModalAtom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/firebase";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 type Props = {};
 
 const Login = (props: Props) => {
@@ -30,10 +31,16 @@ const Login = (props: Props) => {
       );
       if (!user) return;
       router.push("/");
-    } catch (error: any) {
-      alert(error.message);
-    }
+    } catch (error: any) {}
   };
+  useEffect(() => {
+    if (error)
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 5000,
+        theme: "dark",
+      });
+  });
   return (
     <form className="space-y-6 px-6 py-4" onSubmit={handleSubmit}>
       <h3 className="text-xl font-medium text-white">Sign in to LeetCode</h3>
@@ -78,6 +85,7 @@ const Login = (props: Props) => {
         Login
       </button>
       <button
+        className="flex w-full justify-end"
         onClick={() => {
           handleClick("forgotPassword");
         }}

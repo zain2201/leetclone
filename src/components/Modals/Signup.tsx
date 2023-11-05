@@ -1,5 +1,5 @@
 import { authModalState } from "@/atoms/authModalAtom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
@@ -40,6 +40,10 @@ const Signup = (props: Props) => {
       console.log("this is error", error);
     }
   };
+
+  useEffect(() => {
+    if (error) alert(error.message);
+  }, [error]);
   return (
     <form className="space-y-6 px-6 py-4" onSubmit={handleRegister}>
       <h3 className="text-xl font-medium text-white">Register to LeetCode</h3>
