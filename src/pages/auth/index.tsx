@@ -2,6 +2,7 @@ import { authModalState } from "@/atoms/authModalAtom";
 import AuthModal from "@/components/Modals/AuthModal";
 import Navbar from "@/components/Navbar/Navbar";
 import { auth } from "@/firebase/firebase";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -24,7 +25,12 @@ const index = (props: Props) => {
       <div className="max-w-7xl mx-auto">
         <Navbar />
         <div className="flex items-center justify-center h-[calc(100vh-5rem)] pointer-events-none select-none ">
-          <img src="/hero.png" alt="hero image"></img>
+          <Image
+            src="/hero.png"
+            alt="hero image"
+            width={700}
+            height={700}
+          ></Image>
         </div>
 
         {authModal.isOpen && <AuthModal />}
